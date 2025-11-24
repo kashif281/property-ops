@@ -1,0 +1,179 @@
+{
+  "entities": [
+    {
+      "name": "Property",
+      "created_at": false,
+      "updated_at": false,
+      "fields": [
+        {
+          "name": "property_id",
+          "type": "serial",
+          "nullable": false,
+          "isIndex": true
+        },
+        {
+          "name": "address",
+          "type": "varchar",
+          "nullable": false
+        },
+        {
+          "name": "rent_amount",
+          "type": "numeric",
+          "nullable": false
+        },
+        {
+          "name": "status",
+          "type": "varchar",
+          "nullable": false,
+          "values": [
+            "available",
+            "occupied",
+            "maintenance"
+          ]
+        }
+      ],
+      "indexes": [],
+      "uniques": []
+    },
+    {
+      "name": "Tenant",
+      "created_at": false,
+      "updated_at": false,
+      "fields": [
+        {
+          "name": "tenant_id",
+          "type": "serial",
+          "nullable": false,
+          "isIndex": true
+        },
+        {
+          "name": "name",
+          "type": "varchar",
+          "nullable": false
+        },
+        {
+          "name": "email",
+          "type": "varchar",
+          "nullable": false
+        },
+        {
+          "name": "phone_number",
+          "type": "varchar",
+          "nullable": false
+        },
+        {
+          "name": "status",
+          "type": "varchar",
+          "nullable": false,
+          "values": [
+            "active",
+            "inactive"
+          ]
+        }
+      ],
+      "indexes": [],
+      "uniques": []
+    },
+    {
+      "name": "LeaseAgreement",
+      "created_at": false,
+      "updated_at": false,
+      "fields": [
+        {
+          "name": "agreement_id",
+          "type": "serial",
+          "nullable": false,
+          "isIndex": true
+        },
+        {
+          "name": "property_id",
+          "type": "integer",
+          "nullable": false
+        },
+        {
+          "name": "tenant_id",
+          "type": "integer",
+          "nullable": false
+        },
+        {
+          "name": "start_date",
+          "type": "date",
+          "nullable": false
+        },
+        {
+          "name": "end_date",
+          "type": "date",
+          "nullable": false
+        },
+        {
+          "name": "status",
+          "type": "varchar",
+          "nullable": false,
+          "values": [
+            "active",
+            "expired"
+          ]
+        }
+      ],
+      "indexes": [],
+      "uniques": []
+    },
+    {
+      "name": "MaintenanceRequest",
+      "created_at": false,
+      "updated_at": false,
+      "fields": [
+        {
+          "name": "request_id",
+          "type": "serial",
+          "nullable": false,
+          "isIndex": true
+        },
+        {
+          "name": "property_id",
+          "type": "integer",
+          "nullable": false
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "request_date",
+          "type": "date",
+          "nullable": false
+        },
+        {
+          "name": "status",
+          "type": "varchar",
+          "nullable": false,
+          "values": [
+            "pending",
+            "completed"
+          ]
+        }
+      ],
+      "indexes": [],
+      "uniques": []
+    }
+  ],
+  "relationships": [
+    {
+      "from": "Property",
+      "to": "Tenant",
+      "type": "OneToMany"
+    },
+    {
+      "from": "Property",
+      "to": "LeaseAgreement",
+      "type": "OneToMany"
+    },
+    {
+      "from": "Property",
+      "to": "MaintenanceRequest",
+      "type": "OneToMany"
+    }
+  ],
+  "_removedEntities": []
+}
